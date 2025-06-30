@@ -204,7 +204,7 @@ function fsql(str) {
 function showLoadingIndicator() {
     var html = `
         <div id="loadingIndicator" class="loading-box">
-            <span style="color:#2266bb;font-size:18px;">正在装入数据,请等待……</span>
+            <span style="color:#2266bb;font-size:13px;">正在装入数据,请等待……</span>
             <img src="Images/message_panel.gif" alt="loading">
         </div>
     `;
