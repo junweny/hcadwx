@@ -25,6 +25,50 @@
     color: #fff !important;
     text-shadow: 0 1px 0 #059 !important;
 }
+
+/* 加载指示器样式 */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-indicator {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    text-align: center;
+    min-width: 200px;
+    backdrop-filter: blur(10px);
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #38c;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 15px;
+}
+
+.loading-text {
+    color: #333;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.loading-subtext {
+    color: #666;
+    font-size: 12px;
+    margin-top: 5px;
+}
 </style>
 </head>
 <body class="UCML-BODY" leftMargin="0" topMargin="0">

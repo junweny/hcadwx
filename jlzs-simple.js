@@ -48,8 +48,8 @@ function initPage() {
         }
     }
     
-    // 默认显示证书预览按钮
-    $("#TUCMLMButton2").parent().show();
+    // 默认隐藏证书预览按钮
+    $("#TUCMLMButton2").parent().hide();
 }
 
 // 查询按钮点击事件
@@ -79,12 +79,17 @@ function queryLocalJSON(queryValue) {
     // 显示加载状态
     $("#TUCMLMButton1").val("查询中...").prop("disabled", true);
     
+    // 显示加载中的图片和文字
+    showLoadingIndicator();
+    
     // 请求本地JSON文件
     $.ajax({
         url: "data/certificates.json",
         type: "GET",
         dataType: "json",
         success: function(response) {
+            // 隐藏加载指示器
+            hideLoadingIndicator();
             $("#TUCMLMButton1").val("查询").prop("disabled", false);
             
             if (response.success) {
@@ -117,6 +122,8 @@ function queryLocalJSON(queryValue) {
             }
         },
         error: function(xhr, status, error) {
+            // 隐藏加载指示器
+            hideLoadingIndicator();
             $("#TUCMLMButton1").val("查询").prop("disabled", false);
             $("#sid").text("网络错误，请稍后重试");
             $("#sid").show();
@@ -136,6 +143,9 @@ function fillFormData(data) {
     $("#yqmcEdit").val(data.yqmc || "");
     $("#ccbhEdit").val(data.ccbh || "");
     $("#zqdjdjEdit").val(data.zqdjdj || "");
+    
+    // 不显示证书预览按钮
+    // $("#TUCMLMButton2").parent().show();
 }
 
 // 清空表单数据
@@ -149,6 +159,9 @@ function clearFormData() {
     $("#yqmcEdit").val("");
     $("#ccbhEdit").val("");
     $("#zqdjdjEdit").val("");
+    
+    // 隐藏证书预览按钮
+    $("#TUCMLMButton2").parent().hide();
 }
 
 // 显示证书内容按钮点击事件
@@ -183,4 +196,22 @@ function fsql(str) {
         }
     }
     return false;
+}
+
+// 显示加载指示器
+function showLoadingIndicator() {
+    // 创建加载指示器HTML，使用新的CSS类
+    var loadingHtml = '<div id="loadingIndicator" class="loading-indicator">' +
+        '<div class="loading-spinner"></div>' +
+        '<div class="loading-text">正在装入数据，请等待...</div>' +
+        '<div class="loading-subtext">请稍候，系统正在处理您的请求</div>' +
+        '</div>';
+    
+    // 添加到页面
+    $('body').append(loadingHtml);
+}
+
+// 隐藏加载指示器
+function hideLoadingIndicator() {
+    $('#loadingIndicator').remove();
 } 
