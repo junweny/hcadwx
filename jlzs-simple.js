@@ -200,15 +200,13 @@ function fsql(str) {
 
 // 显示加载指示器
 function showLoadingIndicator() {
-    // 创建加载指示器HTML，使用新的CSS类
-    var loadingHtml = '<div id="loadingIndicator" class="loading-indicator">' +
-        '<div class="loading-spinner"></div>' +
-        '<div class="loading-text">正在装入数据，请等待...</div>' +
-        '<div class="loading-subtext">请稍候，系统正在处理您的请求</div>' +
-        '</div>';
-    
-    // 添加到页面
-    $('body').append(loadingHtml);
+    var html = `
+        <div id="loadingIndicator" class="loading-box">
+            <img src="Images/message_panel.gif" style="vertical-align:middle;margin-right:10px;width:24px;height:24px;">
+            <span style="font-size:16px;color:#2266bb;">正在装入数据,请等待……</span>
+        </div>
+    `;
+    $('body').append(html);
 }
 
 // 隐藏加载指示器
