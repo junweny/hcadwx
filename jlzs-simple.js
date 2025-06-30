@@ -131,7 +131,7 @@ function queryLocalJSON(queryValue) {
                 console.error("AJAX Error:", error);
             }
         });
-    }, 1000); // 1000毫秒 = 1秒
+    }, 500);
 }
 
 // 填充表单数据
