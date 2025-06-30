@@ -1,0 +1,154 @@
+	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+	<html xmlns="http://www.w3.org/1999/xhtml" >
+	<head runat="server">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="format-detection" content="telephone=no" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+		<title>计量证书查询</title>
+
+    <!--<link rel="stylesheet" href="rpcl-bin/jquerymobile/css/bootstrap.min.css" type="text/css" />-->
+	<link rel="stylesheet" href="rpcl-bin/jquerymobile/css/jquery.mobile-1.4.5.min.css" type="text/css" />
+	<link rel="stylesheet" href="rpcl-bin/jquerymobile/css/jquery.mobile.icons-1.4.5.min.css " type="text/css" />
+	<script type="text/javascript" src="UCML_JS/jquery-1.8.3.min.js"></script>
+	<script src="rpcl-bin/jquerymobile/js/jquery.mobile-1.4.5.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="UCML_JS/jquery.json.js"></script>
+    <script type="text/javascript" language="javascript" src="UCML_JS/UCML_JS_All_M.js"></script>
+    <script type="text/javascript" language="javascript" src="Model/Rule/jsrule.js"></script>
+	<script type="text/javascript" language="javascript" src="Model/Rule/initvalue.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="Skin/mobile_jqm/css/ucmlapp.css" id="ucmlApp" />
+    <script type="text/javascript" language="javascript" src="jlzs.js?version=0"></script>
+
+
+<style type=text/css>
+.ui-input-btn
+{
+	background-color: #38c !important;
+    border-color: #38c !important;
+    color: #fff !important;
+    text-shadow: 0 1px 0 #059 !important;
+}
+</style>
+   	<script type="text/javascript" language="javascript">
+   	    var UCMLResourcePath="";
+   	    var UCMLLocalResourcePath="";
+   	    var BPOName="jlzs";
+   	    var VC_jlsjForm = null;
+var FUseMultiLanguage = false;
+var IsHTMLPage = true;
+var BPOIsJQMPage = true;
+var BPOPageTheme ="a";
+var BusinessData=[];
+BusinessData["BC_jlsj"]=[];
+BusinessData["OIDData"]=[["BC_jlsj",0,0,1]];
+BusinessData["FlowData"]=[];
+BusinessData["PropertyList"]=[];
+BusinessData["ResourceData"]=[];
+BusinessData["UCMLUserSystemInfo"]=[];
+
+var RecordCountInfo={};
+RecordCountInfo["BC_jlsj"]={StartPos:0,ReadCount:0,RecordCount:0,PageCount:0};
+var ServerProperty={};
+   	    function Init()
+   	    {
+             BusinessObject.open();
+   	    }
+   	    function PrepareExColumn(){}
+   	</script>
+	</head>
+	<body  onload= "Init()" class="UCML-BODY" leftMargin="0" topMargin="0">
+
+
+<Form id="Form1" method="post" runat="server">
+<div id="MainPanel" style="Z-INDEX: 100; left: 0px;top: 0px" class="UCML-MainPanel" data-theme="a" data-role="page">     <div data-role="header" data-theme="a"  class="public-head" data-id="p-head">
+<a id="topLeftMenu" class="ui-btn ui-btn-left ui-btn-icon-left ui-icon-back" onclick="window.history.go(-3);">返回</a>
+         <h1>计量证书查询</h1>
+     </div>
+
+<div id="VC_jlsjForm_Module" CssClass="UCML-Panel" Width="100%">
+<div id="VC_jlsjForm" style="width:100%;height:auto" title="计量证书查询">
+    <div id="VC_jlsjFormEditPanel" class=" container">
+      <UL id="ul_VC_jlsjForm" data-role="listview">
+        <LI style="TEXT-ALIGN: center">
+          请输入计量证书编号或证书条码
+        </LI>
+        <LI>
+          <INPUT id="cx" style="BORDER-TOP: #e5e5e5 1px solid; HEIGHT: 40px; BORDER-RIGHT: #e5e5e5 1px solid; WIDTH: 100%; BORDER-BOTTOM: #e5e5e5 1px solid; BORDER-LEFT: #e5e5e5 1px solid"/>
+        </LI>
+        <LI>
+          <div id="TUCMLMButton1_outer">
+            <INPUT id="TUCMLMButton1" name="TUCMLMButton1" tabIndex="-1" data-iconpos="left" value="查询" ctype="UCML.MButton" type="button"/>
+            <INPUT id="TUCMLMButton2" name="TUCMLMButton2" data-iconpos="left" value="显示证书内容" ctype="UCML.MButton" type="button"/>
+            <SPAN id="sid" style="FONT-SIZE: 13px; WIDTH: 100%; COLOR: red; TEXT-ALIGN: center; DISPLAY: none">
+            </SPAN>
+          </div>
+          <li id="zsbhEdit_outer" data-role="fieldcontain">
+            <label for="zsbhEdit">
+              证书编号
+            </label>
+            <input id="zsbhEdit" name="zsbhEdit" tabindex="0" dataFld="zsbh" ctype="UCML.TextBox" type="text"/>
+          </li>
+          <li id="dhEdit_outer" data-role="fieldcontain">
+            <label for="dhEdit">
+              系统单号
+            </label>
+            <input id="dhEdit" name="dhEdit" tabindex="0" dataFld="dh" ctype="UCML.TextBox" type="text"/>
+          </li>
+          <li id="xhEdit_outer" data-role="fieldcontain">
+            <label for="xhEdit">
+              序号
+            </label>
+            <input id="xhEdit" name="xhEdit" tabindex="0" dataFld="xh" ctype="UCML.TextBox" type="text"/>
+          </li>
+          <li id="wtdhEdit_outer" data-role="fieldcontain">
+            <label for="wtdhEdit">
+              委托单号
+            </label>
+            <input id="wtdhEdit" name="wtdhEdit" tabindex="0" dataFld="wtdh" ctype="UCML.TextBox" type="text"/>
+          </li>
+          <li id="qymcEdit_outer" data-role="fieldcontain">
+            <label for="qymcEdit">
+              证书单位
+            </label>
+            <input id="qymcEdit" name="qymcEdit" tabindex="0" dataFld="qymc" ctype="UCML.TextBox" type="text"/>
+          </li>
+          <li id="jcrqEdit_outer" data-role="fieldcontain">
+            <label for="jcrqEdit">
+              校准日期
+            </label>
+            <input id="jcrqEdit" name="jcrqEdit" tabindex="0" dataFld="jcrq" ctype="UCML.TextBox" type="text"/>
+          </li>
+		  
+          <li id="yqmcEdit_outer" data-role="fieldcontain">
+            <label for="yqmcEdit">
+              仪器名称
+            </label>
+            <input id="yqmcEdit" name="yqmcEdit" tabindex="0" dataFld="yqmc" ctype="UCML.TextBox" type="text"/>
+          </li>
+          <li id="ccbhEdit_outer" data-role="fieldcontain">
+            <label for="ccbhEdit">
+              出厂编号
+            </label>
+            <input id="ccbhEdit" name="ccbhEdit" tabindex="0" dataFld="ccbh" ctype="UCML.TextBox" type="text"/>
+          </li>
+          <li id="zqdjdjEdit_outer" data-role="fieldcontain">
+            <label for="zqdjdjEdit">
+              管理编号
+            </label>
+            <input id="zqdjdjEdit" name="zqdjdjEdit" tabindex="0" dataFld="zqdjdj" ctype="UCML.TextBox" type="text"/>
+          </li>
+        </LI>
+      </UL>
+    </div>
+    <IFRAME name="foot" height="5%" frameBorder="" scrolling="yes/no/auto" width="100%" src="foot.html">
+    </IFRAME>
+  
+</div>
+</div>
+</div>
+</Form>
+<script type="text/javascript">
+</script>
+
+</body>
+</html>
