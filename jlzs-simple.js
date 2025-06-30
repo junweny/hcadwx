@@ -81,55 +81,57 @@ function queryLocalJSON(queryValue) {
     
     // 显示加载中的图片和文字
     showLoadingIndicator();
-    
-    // 请求本地JSON文件
-    $.ajax({
-        url: "data/certificates.json",
-        type: "GET",
-        dataType: "json",
-        success: function(response) {
-            // 隐藏加载指示器
-            hideLoadingIndicator();
-            $("#TUCMLMButton1").val("查询").prop("disabled", false);
-            
-            if (response.success) {
-                // 在数据中查找匹配的记录
-                var matchedRecord = null;
-                for (var i = 0; i < response.data.length; i++) {
-                    var record = response.data[i];
-                    // 匹配证书条码、证书编号、单号+序号、或其他字段
-                    if (record.zstxm === queryValue || 
-                        record.zsbh === queryValue || 
-                        (record.dh + record.xh) === queryValue) {
-                        matchedRecord = record;
-                        break;
-                    }
-                }
+
+    // 延迟1秒后再执行AJAX查询
+    setTimeout(function() {
+        $.ajax({
+            url: "data/certificates.json",
+            type: "GET",
+            dataType: "json",
+            success: function(response) {
+                // 隐藏加载指示器
+                hideLoadingIndicator();
+                $("#TUCMLMButton1").val("查询").prop("disabled", false);
                 
-                if (matchedRecord) {
-                    // 填充表单数据
-                    fillFormData(matchedRecord);
-                    $("#sid").hide();
+                if (response.success) {
+                    // 在数据中查找匹配的记录
+                    var matchedRecord = null;
+                    for (var i = 0; i < response.data.length; i++) {
+                        var record = response.data[i];
+                        // 匹配证书条码、证书编号、系统单号+序号
+                        if (record.zstxm === queryValue || 
+                            record.zsbh === queryValue || 
+                            (record.dh + record.xh) === queryValue) {
+                            matchedRecord = record;
+                            break;
+                        }
+                    }
+                    
+                    if (matchedRecord) {
+                        // 填充表单数据
+                        fillFormData(matchedRecord);
+                        $("#sid").hide();
+                    } else {
+                        // 未找到匹配记录
+                        $("#sid").text("未找到证书，请24小时后再查，如还未查到，请与发证单位联系!");
+                        $("#sid").show();
+                        clearFormData();
+                    }
                 } else {
-                    // 未找到匹配记录
-                    $("#sid").text("未找到证书，请24小时后再查，如还未查到，请与发证单位联系!");
+                    $("#sid").text("查询失败：" + response.message);
                     $("#sid").show();
-                    clearFormData();
                 }
-            } else {
-                $("#sid").text("查询失败：" + response.message);
+            },
+            error: function(xhr, status, error) {
+                // 隐藏加载指示器
+                hideLoadingIndicator();
+                $("#TUCMLMButton1").val("查询").prop("disabled", false);
+                $("#sid").text("网络错误，请稍后重试");
                 $("#sid").show();
+                console.error("AJAX Error:", error);
             }
-        },
-        error: function(xhr, status, error) {
-            // 隐藏加载指示器
-            hideLoadingIndicator();
-            $("#TUCMLMButton1").val("查询").prop("disabled", false);
-            $("#sid").text("网络错误，请稍后重试");
-            $("#sid").show();
-            console.error("AJAX Error:", error);
-        }
-    });
+        });
+    }, 1000); // 1000毫秒 = 1秒
 }
 
 // 填充表单数据
@@ -202,8 +204,8 @@ function fsql(str) {
 function showLoadingIndicator() {
     var html = `
         <div id="loadingIndicator" class="loading-box">
-            <img src="Images/message_panel.gif" style="vertical-align:middle;margin-right:10px;width:24px;height:24px;">
-            <span style="font-size:16px;color:#2266bb;">正在装入数据,请等待……</span>
+            <span style="color:#2266bb;font-size:18px;">正在装入数据,请等待……</span>
+            <img src="Images/message_panel.gif" alt="loading">
         </div>
     `;
     $('body').append(html);
