@@ -1,10 +1,10 @@
-	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-	<html xmlns="http://www.w3.org/1999/xhtml" >
-	<head runat="server">
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<meta name="format-detection" content="telephone=no" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-		<title>计量证书查询</title>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+	<title>计量证书查询</title>
 
     <!--<link rel="stylesheet" href="rpcl-bin/jquerymobile/css/bootstrap.min.css" type="text/css" />-->
 	<link rel="stylesheet" href="rpcl-bin/jquerymobile/css/jquery.mobile-1.4.5.min.css" type="text/css" />
@@ -12,13 +12,10 @@
 	<script type="text/javascript" src="UCML_JS/jquery-1.8.3.min.js"></script>
 	<script src="rpcl-bin/jquerymobile/js/jquery.mobile-1.4.5.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="UCML_JS/jquery.json.js"></script>
-    <script type="text/javascript" language="javascript" src="UCML_JS/UCML_JS_All_M.js"></script>
-    <script type="text/javascript" language="javascript" src="Model/Rule/jsrule.js"></script>
-	<script type="text/javascript" language="javascript" src="Model/Rule/initvalue.js"></script>
+    <!-- 移除UCML相关脚本，使用简化版本 -->
+    <script type="text/javascript" language="javascript" src="jlzs-simple.js"></script>
 
     <link rel="stylesheet" type="text/css" href="Skin/mobile_jqm/css/ucmlapp.css" id="ucmlApp" />
-    <script type="text/javascript" language="javascript" src="jlzs.js?version=0"></script>
-
 
 <style type=text/css>
 .ui-input-btn
@@ -29,35 +26,8 @@
     text-shadow: 0 1px 0 #059 !important;
 }
 </style>
-   	<script type="text/javascript" language="javascript">
-   	    var UCMLResourcePath="";
-   	    var UCMLLocalResourcePath="";
-   	    var BPOName="jlzs";
-   	    var VC_jlsjForm = null;
-var FUseMultiLanguage = false;
-var IsHTMLPage = true;
-var BPOIsJQMPage = true;
-var BPOPageTheme ="a";
-var BusinessData=[];
-BusinessData["BC_jlsj"]=[];
-BusinessData["OIDData"]=[["BC_jlsj",0,0,1]];
-BusinessData["FlowData"]=[];
-BusinessData["PropertyList"]=[];
-BusinessData["ResourceData"]=[];
-BusinessData["UCMLUserSystemInfo"]=[];
-
-var RecordCountInfo={};
-RecordCountInfo["BC_jlsj"]={StartPos:0,ReadCount:0,RecordCount:0,PageCount:0};
-var ServerProperty={};
-   	    function Init()
-   	    {
-             BusinessObject.open();
-   	    }
-   	    function PrepareExColumn(){}
-   	</script>
-	</head>
-	<body  onload= "Init()" class="UCML-BODY" leftMargin="0" topMargin="0">
-
+</head>
+<body class="UCML-BODY" leftMargin="0" topMargin="0">
 
 <Form id="Form1" method="post" runat="server">
 <div id="MainPanel" style="Z-INDEX: 100; left: 0px;top: 0px" class="UCML-MainPanel" data-theme="a" data-role="page">     <div data-role="header" data-theme="a"  class="public-head" data-id="p-head">
@@ -147,8 +117,6 @@ var ServerProperty={};
 </div>
 </div>
 </Form>
-<script type="text/javascript">
-</script>
 
 </body>
 </html>

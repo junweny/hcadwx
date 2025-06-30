@@ -175,9 +175,8 @@ function succeeded_fn_Getsfzsyl(obj, text, methodName)
 	     return false;
 	}else
 	{
-		var SqlCondi="(jlsj.zstxm='"+a+"') or (jlsj.zsbh='"+a+"') or (jlsj.dh+jlsj.xh='"+a+"') or (jlsj.mxsid='"+a+"')"
-		condiQuery("", "", "", SqlCondi);
-		Callcount(a);
+		// 使用本地JSON查询替代数据库查询
+		queryLocalJSON(a);
 	}
 	}
 	if(b!=null)
@@ -189,9 +188,8 @@ function succeeded_fn_Getsfzsyl(obj, text, methodName)
 	     return false;
 	}else
 	{
-		var SqlCondi="(jlsj.zstxm='"+b+"') or (jlsj.zsbh='"+b+"') or (jlsj.dh+jlsj.xh='"+b+"') or (jlsj.mxsid='"+b+"')"
-		condiQuery("", "", "", SqlCondi);
-		Callcount(b);
+		// 使用本地JSON查询替代数据库查询
+		queryLocalJSON(b);
 	}
 	}
 	$("#TUCMLMButton1").parent().addClass("ui-btn-active");
@@ -233,14 +231,90 @@ function TUCMLMButton1_onclick( Sender)
 		return false;
 	}else
 	{
-	var SqlCondi="(jlsj.zstxm='"+zstxm+"') or (jlsj.zsbh='"+zstxm+"') or (jlsj.dh+jlsj.xh='"+zstxm+"') or (jlsj.mxsid='"+zstxm+"')"
-	condiQuery("", "", "", SqlCondi);
+		// 请求本地JSON接口
+		queryLocalJSON(zstxm);
 	}
-	
-	//var count=BC_jlsjBase.getRecordCount();
-	
-	Callcount(zstxm);
 	}
+}
+
+// 新增函数：请求本地JSON接口
+function queryLocalJSON(queryValue) {
+	// 隐藏错误信息
+	$("#sid").hide();
+	
+	// 显示加载状态
+	$("#TUCMLMButton1").val("查询中...").prop("disabled", true);
+	
+	// 请求本地JSON文件
+	$.ajax({
+		url: "data/certificates.json",
+		type: "GET",
+		dataType: "json",
+		success: function(response) {
+			$("#TUCMLMButton1").val("查询").prop("disabled", false);
+			
+			if (response.success) {
+				// 在数据中查找匹配的记录
+				var matchedRecord = null;
+				for (var i = 0; i < response.data.length; i++) {
+					var record = response.data[i];
+					// 匹配证书条码、证书编号、单号+序号、或其他字段
+					if (record.zstxm === queryValue || 
+						record.zsbh === queryValue || 
+						(record.dh + record.xh) === queryValue) {
+						matchedRecord = record;
+						break;
+					}
+				}
+				
+				if (matchedRecord) {
+					// 填充表单数据
+					fillFormData(matchedRecord);
+					$("#sid").hide();
+				} else {
+					// 未找到匹配记录
+					$("#sid").text("未找到证书，请24小时后再查，如还未查到，请与发证单位联系!");
+					$("#sid").show();
+					clearFormData();
+				}
+			} else {
+				$("#sid").text("查询失败：" + response.message);
+				$("#sid").show();
+			}
+		},
+		error: function(xhr, status, error) {
+			$("#TUCMLMButton1").val("查询").prop("disabled", false);
+			$("#sid").text("网络错误，请稍后重试");
+			$("#sid").show();
+			console.error("AJAX Error:", error);
+		}
+	});
+}
+
+// 新增函数：填充表单数据
+function fillFormData(data) {
+	$("#zsbhEdit").val(data.zsbh || "");
+	$("#dhEdit").val(data.dh || "");
+	$("#xhEdit").val(data.xh || "");
+	$("#wtdhEdit").val(data.wtdh || "");
+	$("#qymcEdit").val(data.qymc || "");
+	$("#jcrqEdit").val(data.jcrq || "");
+	$("#yqmcEdit").val(data.yqmc || "");
+	$("#ccbhEdit").val(data.ccbh || "");
+	$("#zqdjdjEdit").val(data.zqdjdj || "");
+}
+
+// 新增函数：清空表单数据
+function clearFormData() {
+	$("#zsbhEdit").val("");
+	$("#dhEdit").val("");
+	$("#xhEdit").val("");
+	$("#wtdhEdit").val("");
+	$("#qymcEdit").val("");
+	$("#jcrqEdit").val("");
+	$("#yqmcEdit").val("");
+	$("#ccbhEdit").val("");
+	$("#zqdjdjEdit").val("");
 }
 
 function TUCMLMButton2_onclick( Sender)
